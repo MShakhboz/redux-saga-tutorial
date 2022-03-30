@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import { useSelector, useDispatch, connect } from 'react-redux'; 
 import './App.css';
+import store from './redux';
 
-function App() {
+function App({ dispatchLoadData }) {
+  const selector = useSelector(store => store);
+  const dispatch = useDispatch();
+
+  console.log(selector);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>Redux Saga</p>
+      <button onClick={dispatchLoadData}>click me</button>
     </div>
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchLoadData: () => dispatch({type: "LOAD_DATA"})
+  }
+}
+
+export default connect(null, mapDispatchToProps)(App);
+
